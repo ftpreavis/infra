@@ -1,6 +1,19 @@
 version: "3.8"
 
 services:
+  db-service:
+    build:
+      context: ../services/db-service
+      dockerfile: dockerfile
+    container_name: db-service
+    ports:
+      - "5432:3000"
+    volumes:
+      - ../services/db-service:/app
+    environment:
+      NODE_ENV: production
+    working_dir: /app
+
   auth-service:
     build:
       context: ../services/auth-service
