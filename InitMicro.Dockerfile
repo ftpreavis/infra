@@ -11,10 +11,21 @@ CMD ["/bin/sh", "-c", "\
   fi && \
   npm install fastify && \
   if [ ! -f index.js ]; then \
-    echo \"const fastify = require('fastify')();\" > index.js && \
-    echo \"fastify.get('/', async () => ({ hello: 'world' }));\" >> index.js && \
-    echo \"fastify.listen({ port: 3000 }, err => { if (err) throw err; });\" >> index.js && \
-    echo '✅ index.js created'; \
+    echo \"import fastify from 'fastify';\" > index.js && \
+    echo \"\" >> index.js && \
+    echo \"const server = fastify();\" >> index.js && \
+    echo \"\" >> index.js && \
+    echo \"server.get('/', async (request, reply) => {\" >> index.js && \
+    echo \"  return 'pong';\" >> index.js && \
+    echo \"});\" >> index.js && \
+    echo \"\" >> index.js && \
+    echo \"server.listen({ host: '0.0.0.0', port: 3000 }, (err, addr) => {\" >> index.js && \
+    echo \"  if (err) {\" >> index.js && \
+    echo \"    console.error(err);\" >> index.js && \
+    echo \"    process.exit(1);\" >> index.js && \
+    echo \"  }\" >> index.js && \
+    echo \"  console.log(\\\"Server listening at \\\", addr);\" >> index.js && \
+    echo \"});\" >> index.js; \
   else \
     echo '📝 index.js already exists, skipping'; \
   fi && \
