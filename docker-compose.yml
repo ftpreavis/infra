@@ -1,0 +1,107 @@
+version: "3.8"
+
+services:
+  auth-service:
+    build:
+      context: ../services/auth-service
+      dockerfile: dockerfile
+    container_name: auth-service
+    ports:
+      - "4001:3000"
+    volumes:
+      - ../services/auth-service:/app
+    environment:
+      NODE_ENV: production
+    working_dir: /app
+
+  chat-service:
+    build:
+      context: ../services/chat-service
+      dockerfile: dockerfile
+    container_name: chat-service
+    ports:
+      - "4002:3000"
+    volumes:
+      - ../services/chat-service:/app
+    environment:
+      NODE_ENV: production
+    working_dir: /app
+
+  gateway-service:
+    build:
+      context: ../services/gateway-service
+      dockerfile: dockerfile
+    container_name: gateway-service
+    ports:
+      - "4003:3000"
+    volumes:
+      - ../services/gateway-service:/app
+    environment:
+      NODE_ENV: production
+    working_dir: /app
+
+  lobby-service:
+    build:
+      context: ../services/lobby-service
+      dockerfile: dockerfile
+    container_name: lobby-service
+    ports:
+      - "4004:3000"
+    volumes:
+      - ../services/lobby-service:/app
+    environment:
+      NODE_ENV: production
+    working_dir: /app
+
+  matchmaking-service:
+    build:
+      context: ../services/matchmaking-service
+      dockerfile: dockerfile
+    container_name: matchmaking-service
+    ports:
+      - "4005:3000"
+    volumes:
+      - ../services/matchmaking-service:/app
+    environment:
+      NODE_ENV: production
+    working_dir: /app
+
+  notification-service:
+    build:
+      context: ../services/notification-service
+      dockerfile: dockerfile
+    container_name: notification-service
+    ports:
+      - "4006:3000"
+    volumes:
+      - ../services/notification-service:/app
+    environment:
+      NODE_ENV: production
+    working_dir: /app
+
+  tournament-service:
+    build:
+      context: ../services/tournament-service
+      dockerfile: dockerfile
+    container_name: tournament-service
+    ports:
+      - "4007:3000"
+    volumes:
+      - ../services/tournament-service:/app
+    environment:
+      NODE_ENV: production
+    working_dir: /app
+
+  user-service:
+    build:
+      context: ../services/user-service
+      dockerfile: dockerfile
+    container_name: user-service
+    ports:
+      - "4008:3000"
+    volumes:
+      - ../services/user-service:/app
+    environment:
+      NODE_ENV: production
+    working_dir: /app
+
