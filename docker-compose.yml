@@ -1,14 +1,20 @@
 services:
   vault-module:
-    image: vault:1.13
+    build:
+      context: ./vault
+      dockerfile: dockerfile
+    container_name: vault-module
     ports:
-      - "8201:8200"
-    volumes:
-      - ./vault/config:/vault/config
-      - ./vault/data:/vault/data
+      - "5433:8200"
+      - "5434:8201"
+    environment:
+      VAULT_API_ADDR: 'http://vault-module:8200'
     cap_add:
       - IPC_LOCK
-    command: server -config=/vault/config/vault-prod.hcl
+    volumes:
+      - ./vault/data:/vault/data
+      - ./vault/certs:/vault/certs:ro
+    command: server
   db-service:
     build:
       context: ../services/db-service
@@ -126,3 +132,5 @@ services:
       NODE_ENV: production
     working_dir: /app
 
+volumes:
+  vault-prod-data:

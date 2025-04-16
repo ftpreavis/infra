@@ -1,17 +1,21 @@
 services:
   vault-module:
-    image: vault:1.13
+    build:
+      context: ./vault
+      dockerfile: dockerfile.dev
+    container_name: vault-module
     ports:
-      - "8200:8200"
-    environment:
-      VAULT_DEV_ROOT_TOKEN_ID: root
-      VAULT_DEV_LISTEN_ADDRESS: 0.0.0.0:8200
-    volumes:
-      - ./vault/config:/vault/config
-      - ./vault/data:/vault/data
+      - "5433:8200"
+      - "5434:8201"
     cap_add:
       - IPC_LOCK
-    command: server -config=/vault/config/vault-dev.hcl
+  vault-seeder:
+    build:
+      context: ./vault/seeder
+      dockerfile: seeder.dev.dockerfile
+    depends_on:
+      - vault-module
+    network_mode: "service:vault-module"
   db-service:
     build:
       context: ../services/db-service
@@ -129,3 +133,5 @@ services:
       NODE_ENV: development
     working_dir: /app
 
+volumes:
+  vault-dev-data:
