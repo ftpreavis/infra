@@ -1,4 +1,21 @@
 services:
+  vault-module:
+    build:
+      context: ./vault
+      dockerfile: dockerfile.dev
+    container_name: vault-module
+    ports:
+      - "5433:8200"
+      - "5434:8201"
+    cap_add:
+      - IPC_LOCK
+  vault-seeder:
+    build:
+      context: ./vault/seeder
+      dockerfile: seeder.dev.dockerfile
+    depends_on:
+      - vault-module
+    network_mode: "service:vault-module"
   db-service:
     build:
       context: ../services/db-service
@@ -116,3 +133,5 @@ services:
       NODE_ENV: development
     working_dir: /app
 
+volumes:
+  vault-dev-data:

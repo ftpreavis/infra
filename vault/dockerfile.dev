@@ -1,0 +1,8 @@
+FROM vault:1.13.3
+
+EXPOSE 8200
+EXPOSE 8201
+
+ENV VAULT_DEV_ROOT_TOKEN_ID=root
+
+CMD [ "vault", "server", "-dev", "-dev-root-token-id=root", "-dev-listen-address=0.0.0.0:8200" ]

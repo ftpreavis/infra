@@ -1,0 +1,11 @@
+FROM vault:1.13.3
+
+# Copy configuration files
+COPY config/vault-prod.hcl /vault/config/
+
+# Optional: add seed script into the image
+COPY seed.prod.sh /vault/seed.sh
+RUN chmod +x /vault/seed.sh
+
+EXPOSE 8200
+EXPOSE 8201
