@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# ---------------------------------------------------------------------------- #
+#     Template, rename to seed.dev.sh for it to work on dev, same for prod     #
+# ---------------------------------------------------------------------------- #
+
 echo "⌛ Waiting for Vault to be reachable..."
 
 until vault status > /dev/null 2>&1; do
@@ -9,7 +13,7 @@ done
 
 echo "✅ Vault is up! Seeding dev secrets..."
 
-## CHANGE FOLLOWING VALUES TO SEED THE DB CORRECTLY
+# ------------- CHANGE FOLLOWING VALUES TO SEED THE DB CORRECTLY ------------- #
 
 vault kv put secret/jwt SECRET_KEY=dev-jwt-secret
 vault kv put secret/oauth GOOGLE_CLIENT_ID=dev-client-id GOOGLE_CLIENT_SECRET=dev-client-secret

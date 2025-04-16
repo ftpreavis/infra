@@ -1,2 +1,3 @@
-seed.prod.sh
+seeder/seed.prod.sh
+seeder/seed.dev.sh
 data/*
