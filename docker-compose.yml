@@ -1,4 +1,14 @@
 services:
+  vault-module:
+    image: vault:1.13
+    ports:
+      - "8201:8200"
+    volumes:
+      - ./vault/config:/vault/config
+      - ./vault/data:/vault/data
+    cap_add:
+      - IPC_LOCK
+    command: server -config=/vault/config/vault-prod.hcl
   db-service:
     build:
       context: ../services/db-service
