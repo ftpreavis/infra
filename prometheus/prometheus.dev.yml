@@ -1,0 +1,21 @@
+global:
+  scrape_interval: 5s
+
+scrape_configs:
+  - job_name: 'prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ["localhost:9090"]
+  - job_name: 'microservices'
+    scrape_interval: 5s
+    static_configs:
+      - targets:
+          - 'auth-service:3000'
+          - 'chat-service:3000'
+          - 'db-service:3000'
+          - 'gateway-service:3000'
+          - 'lobby-service:3000'
+          - 'matchmaking-service:3000'
+          - 'notification-service:3000'
+          - 'tournament-service:3000'
+          - 'user-service:3000'
