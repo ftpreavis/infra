@@ -1,0 +1,7 @@
+FROM grafana/grafana:latest
+
+# Provisioning files go here
+COPY provisioning /etc/grafana/provisioning
+
+# Dashboards to be auto-loaded
+COPY dashboards /etc/grafana/provisioning/dashboards
