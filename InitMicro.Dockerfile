@@ -1,3 +1,5 @@
+# Deprecated
+
 FROM node:latest
 
 WORKDIR /app
