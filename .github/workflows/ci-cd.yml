@@ -1,0 +1,10 @@
+name: CI/CD Infra
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  infra-ci-cd:
+    uses: ftpreavis/.github/.github/workflows/deploy-infra.yml@master
+    secrets: inherit
