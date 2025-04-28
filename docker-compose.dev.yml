@@ -20,7 +20,7 @@ services:
     network_mode: "service:vault-module"
   frontend:
     build:
-      context: ./frontend
+      context: ../frontend
       dockerfile: dockerfile.dev
     environment:
       - VITE_HOST=0.0.0.0
@@ -29,7 +29,8 @@ services:
     ports:
       - "5173:5173"
     volumes:
-      - ./frontend:/app
+      - ../frontend:/app:delegated
+      - /app/node_modules
   db-service:
     build:
       context: ../services/db-service

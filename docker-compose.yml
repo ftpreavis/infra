@@ -18,7 +18,7 @@ services:
     network_mode: "service:vault-module"
   frontend:
     build:
-      context: ./frontend
+      context: ../frontend
       dockerfile: dockerfile
     image: ftpreavis/frontend:latest
     restart: always
