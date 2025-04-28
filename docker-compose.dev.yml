@@ -18,6 +18,18 @@ services:
     depends_on:
       - vault-module
     network_mode: "service:vault-module"
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: dockerfile.dev
+    environment:
+      - VITE_HOST=0.0.0.0
+      - VITE_PORT=5173
+      - CHOKIDAR_USEPOLLING=true
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
   db-service:
     build:
       context: ../services/db-service
