@@ -7,3 +7,5 @@
 - InitMicro.Dockerfile : Builds a new microservice (Use with ft_preavis meta repository's new-micro Makefile rule)
 
 Prod docker-compose.yml also starts an nginx server to serve the different services
+
+In production, do not modify files manually. Every data that needs to be persisted will be in /srv/ft_preavis/data
