@@ -167,10 +167,10 @@ services:
       - internal_network
 
   prometheus-module:
-    image: prom/promtheus:latest
+    image: prom/prometheus:latest
     container_name: prometheus-module
     volumes:
-      - ./prometheus/promtheus.yml:/etc/promtheus/prometheus.yml:ro
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
       - prometheus-data:/prometheus
     ports:
       - "9090:9090"
