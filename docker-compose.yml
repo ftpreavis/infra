@@ -1,21 +1,35 @@
 services:
   vault-module:
-    build:
-      context: ./vault
-      dockerfile: dockerfile
+    image: vault:1.13.3
     container_name: vault-module
     cap_add:
       - IPC_LOCK
     networks:
-      - metrics_network
       - internal_network
-  vault-seeder:
-    build:
-      context: ./vault/seeder
-      dockerfile: seeder.dev.dockerfile
+    volumes:
+      - vault-data:/vault/data
+      - vault-certs:/vault/certs:ro
+      - ./config/vault-prod.hcl:/vault/config/vault.hcl:ro
+
+  nginx-proxy:
+    image: nginx:alpine
+    container_name: nginx-proxy
     depends_on:
       - vault-module
-    network_mode: "service:vault-module"
+      - grafana-module
+      - prometheus-module
+      - gateway-service
+      - frontend
+    restart: always
+    ports:
+      - "127.0.0.1:4443:80"
+
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - vault-certs:/vault/certs:ro
+
+    networks:
+      - internal_network
   frontend:
     build:
       context: ../frontend
@@ -153,10 +167,11 @@ services:
       - internal_network
 
   prometheus-module:
-    build:
-      context: ./prometheus
-      dockerfile: dockerfile
+    image: prom/promtheus:latest
     container_name: prometheus-module
+    volumes:
+      - ./prometheus/promtheus.yml:/etc/promtheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
     ports:
       - "9090:9090"
     networks:
@@ -175,16 +190,37 @@ services:
       - prometheus-module
     networks:
       - metrics_network
-    environment:
-      - GF_SECURITY_ADMIN_USER=dev
-      - GF_SECURITY_ADMIN_PASSWORD=devpass
 
 volumes:
   vault-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /srv/ft_preavis/data/vault/data
+  vault-certs:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /srv/ft_preavis/data/vault/certs
   grafana-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /srv/ft_preavis/data/grafana/data
+  prometheus-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /srv/ft_preavis/data/prometheus/data
 
 networks:
   metrics_network:
     driver: bridge
+    internal: true
   internal_network:
     driver: bridge
+    internal: true

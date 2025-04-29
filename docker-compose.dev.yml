@@ -167,14 +167,14 @@ services:
       - metrics_network
 
   prometheus-module:
-    build:
-      context: ./prometheus
-      dockerfile: dockerfile.dev
+    image: prom/prometheus:latest
     container_name: prometheus-module
     ports:
       - "9090:9090"
     networks:
       - metrics_network
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
 
   grafana-module:
     build:
