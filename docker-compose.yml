@@ -10,7 +10,7 @@ services:
     volumes:
       - vault-data:/vault/data
       - vault-certs:/vault/certs:ro
-      - ./config/vault-prod.hcl:/vault/config/vault.hcl:ro
+      - ./vault/config/vault-prod.hcl:/vault/config/vault.hcl:ro
     restart: always
 
   nginx-proxy:
