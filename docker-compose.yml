@@ -2,14 +2,13 @@ services:
   vault-module:
     image: vault:1.13.3
     container_name: vault-module
-    user: "root"
     cap_add:
       - IPC_LOCK
     networks:
       - internal_network
     command: server
     volumes:
-      - vault-data:/vault/data
+      - vault-data:/vault/file
       - vault-certs:/vault/certs:ro
       - ./vault/config/vault-prod.hcl:/vault/config/vault.hcl:ro
     environment:
