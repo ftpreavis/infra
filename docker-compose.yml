@@ -42,133 +42,152 @@ services:
     build:
       context: ../services/db-service
       dockerfile: dockerfile
+    image: ftpreavis/db-service:latest
     container_name: db-service
-    volumes:
-      - ../services/db-service:/app
+    working_dir: /app
     environment:
       NODE_ENV: production
-    working_dir: /app
+    expose:
+      - "3000"
     networks:
       - metrics_network
       - internal_network
+    restart: always
 
   auth-service:
     build:
       context: ../services/auth-service
       dockerfile: dockerfile
+    image: ftpreavis/auth-service:latest
     container_name: auth-service
-    volumes:
-      - ../services/auth-service:/app
+    working_dir: /app
     environment:
       NODE_ENV: production
-    working_dir: /app
+    expose:
+      - "3000"
     networks:
       - metrics_network
       - internal_network
+    restart: always
 
   chat-service:
     build:
       context: ../services/chat-service
       dockerfile: dockerfile
+    image: ftpreavis/chat-service:latest
     container_name: chat-service
-    volumes:
-      - ../services/chat-service:/app
+    working_dir: /app
     environment:
       NODE_ENV: production
-    working_dir: /app
+    expose:
+      - "3000"
     networks:
       - metrics_network
       - internal_network
+    restart: always
 
   gateway-service:
     build:
       context: ../services/gateway-service
       dockerfile: dockerfile
     container_name: gateway-service
+    image: ftpreavis/gateway-service:latest
+    working_dir: /app
+    expose:
+      - "3000"
     ports:
       - "4008:3000"
-    volumes:
-      - ../services/gateway-service:/app
     environment:
       NODE_ENV: production
-    working_dir: /app
     networks:
       - metrics_network
       - internal_network
+    restart: always
 
   lobby-service:
     build:
       context: ../services/lobby-service
       dockerfile: dockerfile
+    image: ftpreavis/lobby-service:latest
     container_name: lobby-service
-    volumes:
-      - ../services/lobby-service:/app
+    working_dir: /app
     environment:
       NODE_ENV: production
-    working_dir: /app
+    expose:
+      - "3000"
     networks:
       - metrics_network
       - internal_network
+    restart: always
 
   matchmaking-service:
     build:
       context: ../services/matchmaking-service
       dockerfile: dockerfile
+    image: ftpreavis/matchmaking-service:latest
     container_name: matchmaking-service
-    volumes:
-      - ../services/matchmaking-service:/app
+    working_dir: /app
     environment:
       NODE_ENV: production
-    working_dir: /app
+    expose:
+      - "3000"
     networks:
       - metrics_network
       - internal_network
+    restart: always
 
   notification-service:
     build:
       context: ../services/notification-service
       dockerfile: dockerfile
+    image: ftpreavis/notification-service:latest
     container_name: notification-service
-    volumes:
-      - ../services/notification-service:/app
+    working_dir: /app
     environment:
       NODE_ENV: production
-    working_dir: /app
+    expose:
+      - "3000"
     networks:
       - metrics_network
       - internal_network
+    restart: always
 
   tournament-service:
     build:
       context: ../services/tournament-service
       dockerfile: dockerfile
+    image: ftpreavis/tournament-service:latest
     container_name: tournament-service
-    volumes:
-      - ../services/tournament-service:/app
+    working_dir: /app
     environment:
       NODE_ENV: production
-    working_dir: /app
+    expose:
+      - "3000"
     networks:
       - metrics_network
       - internal_network
+    restart: always
 
   user-service:
     build:
       context: ../services/user-service
       dockerfile: dockerfile
+    image: ftpreavis/user-service:latest
     container_name: user-service
-    volumes:
-      - ../services/user-service:/app
+    working_dir: /app
     environment:
       NODE_ENV: production
-    working_dir: /app
+    expose:
+      - "3000"
     networks:
       - metrics_network
       - internal_network
+    restart: always
 
   prometheus-module:
     image: prom/prometheus:latest
     container_name: prometheus-module
+    user: "0:0"
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
       - prometheus-data:/prometheus
