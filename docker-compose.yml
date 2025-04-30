@@ -186,6 +186,24 @@ services:
       - internal_network
     restart: always
 
+  media-service:
+    build:
+      context: ../services/media-service
+      dockerfile: dockerfile
+    image: ftpreavis/media-service:latest
+    container_name: media-service
+    working_dir: /app
+    environment:
+      NODE_ENV: production
+    expose:
+      - "3000"
+    ports:
+      - "4009:3000"
+    networks:
+      - metrics_network
+      - internal_network
+    restart: always
+
   prometheus-module:
     image: prom/prometheus:latest
     container_name: prometheus-module
