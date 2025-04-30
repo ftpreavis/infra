@@ -47,6 +47,8 @@ services:
     restart: always
     ports:
       - "8080:80"
+    networks:
+      - internal_network
   db-service:
     build:
       context: ../services/db-service
@@ -222,6 +224,7 @@ services:
       - "9090:9090"
     networks:
       - metrics_network
+      - internal_network
 
   grafana-module:
     build:
@@ -236,6 +239,7 @@ services:
       - prometheus-module
     networks:
       - metrics_network
+      - internal_network
 
 networks:
   metrics_network:
