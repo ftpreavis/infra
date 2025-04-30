@@ -5,6 +5,7 @@ services:
     user: "1001:1001"
     cap_add:
       - IPC_LOCK
+      - SETFCAP
     networks:
       - internal_network
     command: server
