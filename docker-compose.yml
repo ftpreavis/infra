@@ -2,10 +2,9 @@ services:
   vault-module:
     image: vault:1.13.3
     container_name: vault-module
-    user: "1001:1001"
+    user: "vault"
     cap_add:
       - IPC_LOCK
-      - SETFCAP
     networks:
       - internal_network
     command: server
@@ -13,6 +12,9 @@ services:
       - vault-data:/vault/data
       - vault-certs:/vault/certs:ro
       - ./vault/config/vault-prod.hcl:/vault/config/vault.hcl:ro
+    environment:
+      - SKIP_SETCAP=false
+      - VAULT_ADDR="http://0.0.0.0:8200"
     restart: always
 
   nginx-proxy:
