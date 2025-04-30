@@ -166,6 +166,21 @@ services:
     networks:
       - metrics_network
 
+  media-service:
+    build:
+      context: ../services/media-service
+      dockerfile: dockerfile.dev
+    container_name: media-service
+    ports:
+      - "4009:3000"
+    volumes:
+      - ../services/media-service:/app
+    environment:
+      NODE_ENV: development
+    working_dir: /app
+    networks:
+      - metrics_network
+
   prometheus-module:
     image: prom/prometheus:latest
     container_name: prometheus-module
