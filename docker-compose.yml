@@ -7,8 +7,12 @@ services:
     networks:
       - internal_network
     command: server
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
     volumes:
-      - vault-data:/vault/file
+      - vault-data:/vault
       - vault-certs:/vault/certs:ro
       - ./vault/config/vault-prod.hcl:/vault/config/vault.hcl:ro
     environment:
