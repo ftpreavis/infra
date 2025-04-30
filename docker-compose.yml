@@ -1,7 +1,6 @@
 services:
   vault-module:
     image: vault:1.13.3
-    user: "0:0"
     container_name: vault-module
     cap_add:
       - IPC_LOCK
