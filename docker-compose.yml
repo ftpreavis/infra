@@ -6,12 +6,12 @@ services:
       - IPC_LOCK
     networks:
       - internal_network
+    command: server
     volumes:
       - vault-data:/vault/data
       - vault-certs:/vault/certs:ro
       - ./config/vault-prod.hcl:/vault/config/vault.hcl:ro
-    environment:
-      - VAULT_ADDR=http://0.0.0.0:8200
+    restart: always
 
   nginx-proxy:
     image: nginx:alpine
