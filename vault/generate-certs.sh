@@ -15,7 +15,7 @@ sudo certbot certonly \
 # 2) Copy into place for Docker
 mkdir -p "$OUTDIR"
 sudo cp /etc/letsencrypt/live/"$DOMAIN"/{fullchain.pem,privkey.pem} "$OUTDIR"/
-sudo chown -R root:CICD "$OUTDIR"
+sudo chown -R 1001:1001 "$OUTDIR"
 sudo chmod 640 "$OUTDIR"/*.pem
 
 echo "✔ Certificates for $DOMAIN written to $OUTDIR"
