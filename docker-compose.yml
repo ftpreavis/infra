@@ -10,6 +10,8 @@ services:
       - vault-data:/vault/data
       - vault-certs:/vault/certs:ro
       - ./config/vault-prod.hcl:/vault/config/vault.hcl:ro
+    environment:
+      - VAULT_ADDR=http://0.0.0.0:8200
 
   nginx-proxy:
     image: nginx:alpine
