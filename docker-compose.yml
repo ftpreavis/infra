@@ -2,7 +2,7 @@ services:
   vault-module:
     image: vault:1.13.3
     container_name: vault-module
-    user: "1002:1002"
+    user: "1000:1000"
     cap_add:
       - IPC_LOCK
     networks:
