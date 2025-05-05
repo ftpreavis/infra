@@ -212,7 +212,7 @@ services:
     user: "0:0"
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
-      - /srv/ft_preavis/prometheus/web.yml:/etc/prometheus/web.yml:ro
+      - ./prometheus/web.yml:/etc/prometheus/web.yml:ro
       - /srv/ft_preavis/data/prometheus/data:/prometheus
     ports:
       - "9090:9090"
