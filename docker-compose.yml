@@ -199,6 +199,8 @@ services:
     working_dir: /app
     environment:
       NODE_ENV: production
+    volumes:
+      - /srv/ft_preavis/data/service/media-service:uploads
     expose:
       - "3000"
     ports:
