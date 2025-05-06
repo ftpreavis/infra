@@ -200,7 +200,7 @@ services:
     environment:
       NODE_ENV: production
     volumes:
-      - /srv/ft_preavis/data/service/media-service:/app/uploads
+      - /srv/ft_preavis/data/services/media-service:/app/uploads
     expose:
       - "3000"
     ports:
