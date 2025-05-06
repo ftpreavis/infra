@@ -52,7 +52,7 @@ services:
     environment:
       NODE_ENV: production
     volumes:
-      - /srv/ft_preavis/data/services/db-service/database.db:prisma/database.db
+      - /srv/ft_preavis/data/services/db-service/database.db:/app/prisma/database.db
     expose:
       - "3000"
     networks:
@@ -200,7 +200,7 @@ services:
     environment:
       NODE_ENV: production
     volumes:
-      - /srv/ft_preavis/data/service/media-service:uploads
+      - /srv/ft_preavis/data/service/media-service:/app/uploads
     expose:
       - "3000"
     ports:
