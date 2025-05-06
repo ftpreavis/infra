@@ -52,7 +52,7 @@ services:
     environment:
       NODE_ENV: production
     volumes:
-      - /srv/ft_preavis/data/services/db-service/database.db:/app/database.db
+      - /srv/ft_preavis/data/services/db-service:/app/database/database.db
     expose:
       - "3000"
     networks:
