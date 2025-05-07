@@ -11,6 +11,8 @@ services:
       - IPC_LOCK
     networks:
       - metrics_network
+      - internal_network
+
   vault-seeder:
     build:
       context: ./vault/seeder
@@ -18,6 +20,7 @@ services:
     depends_on:
       - vault-module
     network_mode: "service:vault-module"
+
   frontend:
     build:
       context: ../frontend
@@ -31,6 +34,8 @@ services:
     volumes:
       - ../frontend:/app:delegated
       - /app/node_modules
+    networks:
+      - internal_network
   db-service:
     build:
       context: ../services/db-service
@@ -45,6 +50,7 @@ services:
     working_dir: /app
     networks:
       - metrics_network
+      - internal_network
 
   auth-service:
     build:
@@ -60,6 +66,7 @@ services:
     working_dir: /app
     networks:
       - metrics_network
+      - internal_network
 
   chat-service:
     build:
@@ -75,6 +82,7 @@ services:
     working_dir: /app
     networks:
       - metrics_network
+      - internal_network
 
   gateway-service:
     build:
@@ -90,6 +98,7 @@ services:
     working_dir: /app
     networks:
       - metrics_network
+      - internal_network
 
   lobby-service:
     build:
@@ -105,6 +114,7 @@ services:
     working_dir: /app
     networks:
       - metrics_network
+      - internal_network
 
   matchmaking-service:
     build:
@@ -120,6 +130,7 @@ services:
     working_dir: /app
     networks:
       - metrics_network
+      - internal_network
 
   notification-service:
     build:
@@ -135,6 +146,7 @@ services:
     working_dir: /app
     networks:
       - metrics_network
+      - internal_network
 
   tournament-service:
     build:
@@ -150,6 +162,7 @@ services:
     working_dir: /app
     networks:
       - metrics_network
+      - internal_network
 
   user-service:
     build:
@@ -165,6 +178,7 @@ services:
     working_dir: /app
     networks:
       - metrics_network
+      - internal_network
 
   media-service:
     build:
@@ -180,6 +194,7 @@ services:
     working_dir: /app
     networks:
       - metrics_network
+      - internal_network
 
   prometheus-module:
     image: prom/prometheus:latest
@@ -212,6 +227,9 @@ volumes:
   vault-data:
   grafana-data:
 
+
 networks:
   metrics_network:
+    driver: bridge
+  internal_network:
     driver: bridge
