@@ -20,7 +20,7 @@ services:
       - VAULT_ADDR=https://vault.transcendance.charles-poulain.ovh
     restart: always
     env_file:
-      - env/.dev.env
+      - env/.prod.env
 
   nginx-proxy:
     image: nginx:alpine
@@ -46,7 +46,7 @@ services:
     networks:
       - internal_network
     env_file:
-      - env/.dev.env
+      - env/.prod.env
 
   db-service:
     build:
@@ -55,8 +55,6 @@ services:
     image: ftpreavis/db-service:latest
     container_name: db-service
     working_dir: /app
-    environment:
-      NODE_ENV: production
     volumes:
       - /srv/ft_preavis/data/services/db-service:/app/database/database.db
     expose:
@@ -66,7 +64,7 @@ services:
       - internal_network
     restart: always
     env_file:
-      - env/.dev.env
+      - env/.prod.env
 
   auth-service:
     build:
@@ -75,8 +73,6 @@ services:
     image: ftpreavis/auth-service:latest
     container_name: auth-service
     working_dir: /app
-    environment:
-      NODE_ENV: production
     expose:
       - "3000"
     networks:
@@ -84,7 +80,7 @@ services:
       - internal_network
     restart: always
     env_file:
-      - env/.dev.env
+      - env/.prod.env
 
   chat-service:
     build:
@@ -93,8 +89,6 @@ services:
     image: ftpreavis/chat-service:latest
     container_name: chat-service
     working_dir: /app
-    environment:
-      NODE_ENV: production
     expose:
       - "3000"
     networks:
@@ -102,7 +96,7 @@ services:
       - internal_network
     restart: always
     env_file:
-      - env/.dev.env
+      - env/.prod.env
 
   gateway-service:
     build:
@@ -115,14 +109,12 @@ services:
       - "3000"
     ports:
       - "4008:3000"
-    environment:
-      NODE_ENV: production
     networks:
       - metrics_network
       - internal_network
     restart: always
     env_file:
-      - env/.dev.env
+      - env/.prod.env
 
   lobby-service:
     build:
@@ -131,8 +123,6 @@ services:
     image: ftpreavis/lobby-service:latest
     container_name: lobby-service
     working_dir: /app
-    environment:
-      NODE_ENV: production
     expose:
       - "3000"
     networks:
@@ -140,7 +130,7 @@ services:
       - internal_network
     restart: always
     env_file:
-      - env/.dev.env
+      - env/.prod.env
 
   matchmaking-service:
     build:
@@ -149,8 +139,6 @@ services:
     image: ftpreavis/matchmaking-service:latest
     container_name: matchmaking-service
     working_dir: /app
-    environment:
-      NODE_ENV: production
     expose:
       - "3000"
     networks:
@@ -158,7 +146,7 @@ services:
       - internal_network
     restart: always
     env_file:
-      - env/.dev.env
+      - env/.prod.env
 
   notification-service:
     build:
@@ -167,8 +155,6 @@ services:
     image: ftpreavis/notification-service:latest
     container_name: notification-service
     working_dir: /app
-    environment:
-      NODE_ENV: production
     expose:
       - "3000"
     networks:
@@ -176,7 +162,7 @@ services:
       - internal_network
     restart: always
     env_file:
-      - env/.dev.env
+      - env/.prod.env
 
   tournament-service:
     build:
@@ -185,8 +171,6 @@ services:
     image: ftpreavis/tournament-service:latest
     container_name: tournament-service
     working_dir: /app
-    environment:
-      NODE_ENV: production
     expose:
       - "3000"
     networks:
@@ -194,7 +178,7 @@ services:
       - internal_network
     restart: always
     env_file:
-      - env/.dev.env
+      - env/.prod.env
 
   user-service:
     build:
@@ -203,8 +187,6 @@ services:
     image: ftpreavis/user-service:latest
     container_name: user-service
     working_dir: /app
-    environment:
-      NODE_ENV: production
     expose:
       - "3000"
     networks:
@@ -212,7 +194,7 @@ services:
       - internal_network
     restart: always
     env_file:
-      - env/.dev.env
+      - env/.prod.env
 
   media-service:
     build:
@@ -221,8 +203,6 @@ services:
     image: ftpreavis/media-service:latest
     container_name: media-service
     working_dir: /app
-    environment:
-      NODE_ENV: production
     volumes:
       - /srv/ft_preavis/data/services/media-service:/app/uploads
     expose:
@@ -234,7 +214,7 @@ services:
       - internal_network
     restart: always
     env_file:
-      - env/.dev.env
+      - env/.prod.env
 
   prometheus-module:
     image: prom/prometheus:latest

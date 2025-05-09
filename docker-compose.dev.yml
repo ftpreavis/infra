@@ -49,8 +49,6 @@ services:
       - "5432:3000"
     volumes:
       - ../services/db-service:/app
-    environment:
-      NODE_ENV: development
     working_dir: /app
     networks:
       - internal_network
@@ -66,8 +64,6 @@ services:
       - "4001:3000"
     volumes:
       - ../services/auth-service:/app
-    environment:
-      NODE_ENV: development
     working_dir: /app
     networks:
       - internal_network
@@ -83,8 +79,6 @@ services:
       - "4002:3000"
     volumes:
       - ../services/chat-service:/app
-    environment:
-      NODE_ENV: development
     working_dir: /app
     networks:
       - internal_network
@@ -100,8 +94,6 @@ services:
       - "4003:3000"
     volumes:
       - ../services/gateway-service:/app
-    environment:
-      NODE_ENV: development
     working_dir: /app
     networks:
       - internal_network
@@ -117,8 +109,6 @@ services:
       - "4004:3000"
     volumes:
       - ../services/lobby-service:/app
-    environment:
-      NODE_ENV: development
     working_dir: /app
     networks:
       - internal_network
@@ -134,8 +124,6 @@ services:
       - "4005:3000"
     volumes:
       - ../services/matchmaking-service:/app
-    environment:
-      NODE_ENV: development
     working_dir: /app
     networks:
       - internal_network
@@ -151,8 +139,6 @@ services:
       - "4006:3000"
     volumes:
       - ../services/notification-service:/app
-    environment:
-      NODE_ENV: development
     working_dir: /app
     networks:
       - internal_network
@@ -168,8 +154,6 @@ services:
       - "4007:3000"
     volumes:
       - ../services/tournament-service:/app
-    environment:
-      NODE_ENV: development
     working_dir: /app
     networks:
       - internal_network
@@ -185,8 +169,6 @@ services:
       - "4008:3000"
     volumes:
       - ../services/user-service:/app
-    environment:
-      NODE_ENV: development
     working_dir: /app
     networks:
       - internal_network
@@ -202,8 +184,6 @@ services:
       - "4009:3000"
     volumes:
       - ../services/media-service:/app
-    environment:
-      NODE_ENV: development
     working_dir: /app
     networks:
       - internal_network
