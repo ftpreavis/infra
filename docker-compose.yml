@@ -20,7 +20,7 @@ services:
       - VAULT_ADDR=https://vault.transcendance.charles-poulain.ovh
     restart: always
     env_file:
-      - env/.prod.env
+      - ../data/env/.env.prod
 
   nginx-proxy:
     image: nginx:alpine
@@ -46,7 +46,7 @@ services:
     networks:
       - internal_network
     env_file:
-      - env/.prod.env
+      - ../data/env/.env.prod
 
   db-service:
     build:
@@ -64,7 +64,7 @@ services:
       - internal_network
     restart: always
     env_file:
-      - env/.prod.env
+      - ../data/env/.env.prod
 
   auth-service:
     build:
@@ -80,7 +80,7 @@ services:
       - internal_network
     restart: always
     env_file:
-      - env/.prod.env
+      - ../data/env/.env.prod
 
   chat-service:
     build:
@@ -96,7 +96,7 @@ services:
       - internal_network
     restart: always
     env_file:
-      - env/.prod.env
+      - ../data/env/.env.prod
 
   gateway-service:
     build:
@@ -114,7 +114,7 @@ services:
       - internal_network
     restart: always
     env_file:
-      - env/.prod.env
+      - ../data/env/.env.prod
 
   lobby-service:
     build:
@@ -130,7 +130,7 @@ services:
       - internal_network
     restart: always
     env_file:
-      - env/.prod.env
+      - ../data/env/.env.prod
 
   matchmaking-service:
     build:
@@ -146,7 +146,7 @@ services:
       - internal_network
     restart: always
     env_file:
-      - env/.prod.env
+      - ../data/env/.env.prod
 
   notification-service:
     build:
@@ -162,7 +162,7 @@ services:
       - internal_network
     restart: always
     env_file:
-      - env/.prod.env
+      - ../data/env/.env.prod
 
   tournament-service:
     build:
@@ -178,7 +178,7 @@ services:
       - internal_network
     restart: always
     env_file:
-      - env/.prod.env
+      - ../data/env/.env.prod
 
   user-service:
     build:
@@ -194,7 +194,7 @@ services:
       - internal_network
     restart: always
     env_file:
-      - env/.prod.env
+      - ../data/env/.env.prod
 
   media-service:
     build:
@@ -214,7 +214,7 @@ services:
       - internal_network
     restart: always
     env_file:
-      - env/.prod.env
+      - ../data/env/.env.prod
 
   prometheus-module:
     image: prom/prometheus:latest
