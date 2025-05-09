@@ -9,9 +9,16 @@ done
 
 echo "✅ Vault is up! Seeding dev secrets..."
 
+CSV_FILE=/.env.csv
+if [[ ! -f "$CSV_FILE" ]]; then
+  echo "Error loading seeding csv file"
+  exit 1
+fi
+
+while IFS=, read -r path rest; do
+  echo "Seeding $path → $rest"
+  vault kv put "$path" $rest
+done < "$CSV_FILE"
+
 ## CHANGE FOLLOWING VALUES TO SEED THE DB CORRECTLY
-
-vault kv put secret/jwt SECRET_KEY=dev-jwt-secret
-vault kv put secret/oauth GOOGLE_CLIENT_ID=dev-client-id GOOGLE_CLIENT_SECRET=dev-client-secret
-
 echo "✅ Dev Vault seeded."

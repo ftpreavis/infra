@@ -1,3 +1,4 @@
 seeder/seed.prod.sh
 seeder/seed.dev.sh
 data/*
+seeder/.env.csv
