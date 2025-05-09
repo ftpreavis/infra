@@ -19,6 +19,8 @@ services:
     depends_on:
       - vault-module
     network_mode: "service:vault-module"
+    env_file:
+      - env/.dev.env
 
   frontend:
     build:
@@ -35,6 +37,9 @@ services:
       - /app/node_modules
     networks:
       - internal_network
+    env_file:
+      - env/.dev.env
+
   db-service:
     build:
       context: ../services/db-service
@@ -49,6 +54,8 @@ services:
     working_dir: /app
     networks:
       - internal_network
+    env_file:
+      - env/.dev.env
 
   auth-service:
     build:
@@ -64,6 +71,8 @@ services:
     working_dir: /app
     networks:
       - internal_network
+    env_file:
+      - env/.dev.env
 
   chat-service:
     build:
@@ -79,6 +88,8 @@ services:
     working_dir: /app
     networks:
       - internal_network
+    env_file:
+      - env/.dev.env
 
   gateway-service:
     build:
@@ -94,6 +105,8 @@ services:
     working_dir: /app
     networks:
       - internal_network
+    env_file:
+      - env/.dev.env
 
   lobby-service:
     build:
@@ -109,6 +122,8 @@ services:
     working_dir: /app
     networks:
       - internal_network
+    env_file:
+      - env/.dev.env
 
   matchmaking-service:
     build:
@@ -124,6 +139,8 @@ services:
     working_dir: /app
     networks:
       - internal_network
+    env_file:
+      - env/.dev.env
 
   notification-service:
     build:
@@ -139,6 +156,8 @@ services:
     working_dir: /app
     networks:
       - internal_network
+    env_file:
+      - env/.dev.env
 
   tournament-service:
     build:
@@ -154,6 +173,8 @@ services:
     working_dir: /app
     networks:
       - internal_network
+    env_file:
+      - env/.dev.env
 
   user-service:
     build:
@@ -169,6 +190,8 @@ services:
     working_dir: /app
     networks:
       - internal_network
+    env_file:
+      - env/.dev.env
 
   media-service:
     build:
@@ -184,6 +207,8 @@ services:
     working_dir: /app
     networks:
       - internal_network
+    env_file:
+      - env/.dev.env
 
   prometheus-module:
     image: prom/prometheus:latest
@@ -208,9 +233,8 @@ services:
       - prometheus-module
     networks:
       - internal_network
-    environment:
-      - GF_SECURITY_ADMIN_USER=dev
-      - GF_SECURITY_ADMIN_PASSWORD=devpass
+    env_file:
+      - env/.dev.env
 
 volumes:
   vault-data:

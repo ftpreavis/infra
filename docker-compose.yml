@@ -19,6 +19,8 @@ services:
       - SKIP_SETCAP=false
       - VAULT_ADDR=https://vault.transcendance.charles-poulain.ovh
     restart: always
+    env_file:
+      - env/.dev.env
 
   nginx-proxy:
     image: nginx:alpine
@@ -32,6 +34,7 @@ services:
     networks:
       - internal_network
       - metrics_network
+
   frontend:
     build:
       context: ../frontend
@@ -42,6 +45,9 @@ services:
       - "8080:80"
     networks:
       - internal_network
+    env_file:
+      - env/.dev.env
+
   db-service:
     build:
       context: ../services/db-service
@@ -59,6 +65,8 @@ services:
       - metrics_network
       - internal_network
     restart: always
+    env_file:
+      - env/.dev.env
 
   auth-service:
     build:
@@ -75,6 +83,8 @@ services:
       - metrics_network
       - internal_network
     restart: always
+    env_file:
+      - env/.dev.env
 
   chat-service:
     build:
@@ -91,6 +101,8 @@ services:
       - metrics_network
       - internal_network
     restart: always
+    env_file:
+      - env/.dev.env
 
   gateway-service:
     build:
@@ -109,6 +121,8 @@ services:
       - metrics_network
       - internal_network
     restart: always
+    env_file:
+      - env/.dev.env
 
   lobby-service:
     build:
@@ -125,6 +139,8 @@ services:
       - metrics_network
       - internal_network
     restart: always
+    env_file:
+      - env/.dev.env
 
   matchmaking-service:
     build:
@@ -141,6 +157,8 @@ services:
       - metrics_network
       - internal_network
     restart: always
+    env_file:
+      - env/.dev.env
 
   notification-service:
     build:
@@ -157,6 +175,8 @@ services:
       - metrics_network
       - internal_network
     restart: always
+    env_file:
+      - env/.dev.env
 
   tournament-service:
     build:
@@ -173,6 +193,8 @@ services:
       - metrics_network
       - internal_network
     restart: always
+    env_file:
+      - env/.dev.env
 
   user-service:
     build:
@@ -189,6 +211,8 @@ services:
       - metrics_network
       - internal_network
     restart: always
+    env_file:
+      - env/.dev.env
 
   media-service:
     build:
@@ -209,6 +233,8 @@ services:
       - metrics_network
       - internal_network
     restart: always
+    env_file:
+      - env/.dev.env
 
   prometheus-module:
     image: prom/prometheus:latest
