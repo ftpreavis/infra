@@ -5,12 +5,24 @@ services:
       dockerfile: dockerfile.dev
     container_name: vault-module
     ports:
-      - "5433:8200"
-      - "5434:8201"
+      - 5433:8200
+      - 5434:8201
     cap_add:
       - IPC_LOCK
     networks:
       - internal_network
+    healthcheck:
+      test:
+        - CMD
+        - wget
+        - --spider
+        - --proxy
+        - 'off'
+        - http://vault-module:8200/v1/sys/health?standbyok=true
+      interval: 10s
+      timeout: 3s
+      retries: 10
+      start_period: 5s
 
   vault-seeder:
     build:
@@ -18,7 +30,9 @@ services:
       dockerfile: seeder.dev.dockerfile
     depends_on:
       - vault-module
-    network_mode: "service:vault-module"
+    network_mode: service:vault-module
+    env_file:
+      - env/.dev.env
 
   frontend:
     build:
@@ -29,26 +43,32 @@ services:
       - VITE_PORT=5173
       - CHOKIDAR_USEPOLLING=true
     ports:
-      - "5173:5173"
+      - 5173:5173
     volumes:
       - ../frontend:/app:delegated
       - /app/node_modules
     networks:
       - internal_network
+    env_file:
+      - env/.dev.env
+    depends_on:
+      gateway-service:
+        condition: service_healthy
+
   db-service:
     build:
       context: ../services/db-service
       dockerfile: dockerfile.dev
     container_name: db-service
     ports:
-      - "5432:3000"
+      - 5432:3000
     volumes:
       - ../services/db-service:/app
-    environment:
-      NODE_ENV: development
     working_dir: /app
     networks:
       - internal_network
+    env_file:
+      - env/.dev.env
 
   auth-service:
     build:
@@ -56,14 +76,17 @@ services:
       dockerfile: dockerfile.dev
     container_name: auth-service
     ports:
-      - "4001:3000"
+      - 4001:3000
     volumes:
       - ../services/auth-service:/app
-    environment:
-      NODE_ENV: development
     working_dir: /app
     networks:
       - internal_network
+    env_file:
+      - env/.dev.env
+    depends_on:
+      db-service:
+        condition: service_healthy
 
   chat-service:
     build:
@@ -71,14 +94,17 @@ services:
       dockerfile: dockerfile.dev
     container_name: chat-service
     ports:
-      - "4002:3000"
+      - 4002:3000
     volumes:
       - ../services/chat-service:/app
-    environment:
-      NODE_ENV: development
     working_dir: /app
     networks:
       - internal_network
+    env_file:
+      - env/.dev.env
+    depends_on:
+      gateway-service:
+        condition: service_healthy
 
   gateway-service:
     build:
@@ -86,14 +112,23 @@ services:
       dockerfile: dockerfile.dev
     container_name: gateway-service
     ports:
-      - "4003:3000"
+      - 4003:3000
     volumes:
       - ../services/gateway-service:/app
-    environment:
-      NODE_ENV: development
     working_dir: /app
     networks:
       - internal_network
+    env_file:
+      - env/.dev.env
+    depends_on:
+      auth-service:
+        condition: service_healthy
+      user-service:
+        condition: service_healthy
+      db-service:
+        condition: service_healthy
+      media-service:
+        condition: service_healthy
 
   lobby-service:
     build:
@@ -101,14 +136,17 @@ services:
       dockerfile: dockerfile.dev
     container_name: lobby-service
     ports:
-      - "4004:3000"
+      - 4004:3000
     volumes:
       - ../services/lobby-service:/app
-    environment:
-      NODE_ENV: development
     working_dir: /app
     networks:
       - internal_network
+    env_file:
+      - env/.dev.env
+    depends_on:
+      gateway-service:
+        condition: service_healthy
 
   matchmaking-service:
     build:
@@ -116,14 +154,17 @@ services:
       dockerfile: dockerfile.dev
     container_name: matchmaking-service
     ports:
-      - "4005:3000"
+      - 4005:3000
     volumes:
       - ../services/matchmaking-service:/app
-    environment:
-      NODE_ENV: development
     working_dir: /app
     networks:
       - internal_network
+    env_file:
+      - env/.dev.env
+    depends_on:
+      gateway-service:
+        condition: service_healthy
 
   notification-service:
     build:
@@ -131,14 +172,17 @@ services:
       dockerfile: dockerfile.dev
     container_name: notification-service
     ports:
-      - "4006:3000"
+      - 4006:3000
     volumes:
       - ../services/notification-service:/app
-    environment:
-      NODE_ENV: development
     working_dir: /app
     networks:
       - internal_network
+    env_file:
+      - env/.dev.env
+    depends_on:
+      gateway-service:
+        condition: service_healthy
 
   tournament-service:
     build:
@@ -146,14 +190,17 @@ services:
       dockerfile: dockerfile.dev
     container_name: tournament-service
     ports:
-      - "4007:3000"
+      - 4007:3000
     volumes:
       - ../services/tournament-service:/app
-    environment:
-      NODE_ENV: development
     working_dir: /app
     networks:
       - internal_network
+    env_file:
+      - env/.dev.env
+    depends_on:
+      gateway-service:
+        condition: service_healthy
 
   user-service:
     build:
@@ -161,14 +208,17 @@ services:
       dockerfile: dockerfile.dev
     container_name: user-service
     ports:
-      - "4008:3000"
+      - 4008:3000
     volumes:
       - ../services/user-service:/app
-    environment:
-      NODE_ENV: development
     working_dir: /app
     networks:
       - internal_network
+    env_file:
+      - env/.dev.env
+    depends_on:
+      db-service:
+        condition: service_healthy
 
   media-service:
     build:
@@ -176,20 +226,23 @@ services:
       dockerfile: dockerfile.dev
     container_name: media-service
     ports:
-      - "4009:3000"
+      - 4009:3000
     volumes:
       - ../services/media-service:/app
-    environment:
-      NODE_ENV: development
     working_dir: /app
     networks:
       - internal_network
+    env_file:
+      - env/.dev.env
+    depends_on:
+      db-service:
+        condition: service_healthy
 
   prometheus-module:
     image: prom/prometheus:latest
     container_name: prometheus-module
     ports:
-      - "9090:9090"
+      - 9090:9090
     networks:
       - internal_network
     volumes:
@@ -201,21 +254,19 @@ services:
       dockerfile: dockerfile.dev
     container_name: grafana-module
     ports:
-      - "9000:3000"
+      - 9000:3000
     volumes:
       - grafana-data:/var/lib/grafana
     depends_on:
       - prometheus-module
     networks:
       - internal_network
-    environment:
-      - GF_SECURITY_ADMIN_USER=dev
-      - GF_SECURITY_ADMIN_PASSWORD=devpass
+    env_file:
+      - env/.dev.env
 
 volumes:
-  vault-data:
-  grafana-data:
-
+  vault-data: null
+  grafana-data: null
 
 networks:
   internal_network:
