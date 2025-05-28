@@ -68,20 +68,8 @@ services:
       - internal_network
     env_file:
       - ../data/env/.env.prod
-    healthcheck:
-      test: ["CMD", "wget", "--spider", "--quiet", "http://localhost"]
-      interval: 10s
-      timeout: 3s
-      retries: 5
-      start_period: 5s
     depends_on:
-      notification-service:
-        condition: service_healthy
-      tournament-service:
-        condition: service_healthy
-      matchmaking-service:
-        condition: service_healthy
-      lobby-service:
+      nginx-proxy:
         condition: service_healthy
 
   db-service:
