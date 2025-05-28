@@ -370,11 +370,11 @@ services:
       - metrics_network
       - internal_network
     healthcheck:
-      test: ["CMD", "wget", "--spider", "--quiet", "http://localhost:9090/-/ready"]
+      test: ["CMD", "wget", "http://localhost:9090"]
       interval: 10s
-      timeout: 3s
-      retries: 5
-      start_period: 5s
+      timeout: 15s
+      retries: 10
+      start_period: 10s
     depends_on:
       - nginx-proxy
 
@@ -393,8 +393,8 @@ services:
     healthcheck:
       test: ["CMD", "wget", "--spider", "--quiet", "http://localhost:3000/api/health"]
       interval: 10s
-      timeout: 3s
-      retries: 5
+      timeout: 15s
+      retries: 10
       start_period: 10s
     depends_on:
       prometheus-module:
