@@ -28,7 +28,7 @@ services:
         - --spider
         - --proxy
         - 'off'
-        - http://vault-module:8200/v1/sys/health?standbyok=true
+        - https://vault.transcendance.charles-poulain.ovh/v1/sys/health?standbyok=true
       interval: 10s
       timeout: 3s
       retries: 10
