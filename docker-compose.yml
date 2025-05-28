@@ -29,7 +29,7 @@ services:
       interval: 10s
       timeout: 3s
       retries: 10
-      start_period: 5s
+      start_period: 20s
     depends_on:
       nginx-proxy:
         condition: service_healthy
