@@ -50,11 +50,11 @@ services:
     environment:
       - WAIT_FOR_HOSTS=vault-module prometheus-module grafana-module
     healthcheck:
-      test: ["CMD", "wget", "--spider", "--quiet", "http://localhost"]
+      test: ["CMD", "test", "-f", "/tmp/nginx-waiting"]
       interval: 5s
       timeout: 3s
       retries: 10
-      start_period: 3s
+      start_period: 5s
 
   frontend:
     build:
