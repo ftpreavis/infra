@@ -35,7 +35,6 @@ services:
       start_period: 5s
     depends_on:
       nginx-proxy:
-        condition: service_healthy
 
   nginx-proxy:
     image: nginx:alpine
@@ -378,7 +377,6 @@ services:
       start_period: 5s
     depends_on:
       nginx-proxy:
-        condition: service_healthy
 
   grafana-module:
     build:
