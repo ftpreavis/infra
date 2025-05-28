@@ -48,7 +48,7 @@ services:
       - internal_network
       - metrics_network
     environment:
-      - WAIT_FOR_HOSTS=vault-module prometheus-module grafana-module
+      - WAIT_FOR_HOSTS=vault-module
     healthcheck:
       test: ["CMD", "test", "-f", "/tmp/nginx-waiting"]
       interval: 5s
