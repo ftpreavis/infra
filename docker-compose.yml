@@ -90,7 +90,7 @@ services:
     env_file:
       - ../data/env/.env.prod
     healthcheck:
-      test: ["CMD", "wget", "--spider", "--quiet", "http://localhost:3000/health"]
+      test: ["CMD", "wget", "--spider", "--quiet", "http://localhost:3000/metrics"]
       interval: 10s
       timeout: 3s
       retries: 5
@@ -115,7 +115,7 @@ services:
     env_file:
       - ../data/env/.env.prod
     healthcheck:
-      test: ["CMD", "wget", "--spider", "--quiet", "http://localhost:3000/health"]
+      test: ["CMD", "wget", "--spider", "--quiet", "http://localhost:3000/metrics"]
       interval: 10s
       timeout: 3s
       retries: 5
@@ -140,7 +140,7 @@ services:
     env_file:
       - ../data/env/.env.prod
     healthcheck:
-      test: ["CMD", "wget", "--spider", "--quiet", "http://localhost:3000/health"]
+      test: ["CMD", "wget", "--spider", "--quiet", "http://localhost:3000/metrics"]
       interval: 10s
       timeout: 3s
       retries: 5
@@ -166,6 +166,12 @@ services:
     restart: always
     env_file:
       - ../data/env/.env.prod
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "--quiet", "http://localhost:3000/metrics"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
     depends_on:
       vault-module:
         condition: service_healthy
@@ -190,7 +196,7 @@ services:
     env_file:
       - ../data/env/.env.prod
     healthcheck:
-      test: ["CMD", "wget", "--spider", "--quiet", "http://localhost:3000/health"]
+      test: ["CMD", "wget", "--spider", "--quiet", "http://localhost:3000/metrics"]
       interval: 10s
       timeout: 3s
       retries: 5
@@ -221,7 +227,7 @@ services:
     env_file:
       - ../data/env/.env.prod
     healthcheck:
-      test: ["CMD", "wget", "--spider", "--quiet", "http://localhost:3000/health"]
+      test: ["CMD", "wget", "--spider", "--quiet", "http://localhost:3000/metrics"]
       interval: 10s
       timeout: 3s
       retries: 5
@@ -252,7 +258,7 @@ services:
     env_file:
       - ../data/env/.env.prod
     healthcheck:
-      test: ["CMD", "wget", "--spider", "--quiet", "http://localhost:3000/health"]
+      test: ["CMD", "wget", "--spider", "--quiet", "http://localhost:3000/metrics"]
       interval: 10s
       timeout: 3s
       retries: 5
@@ -283,7 +289,7 @@ services:
     env_file:
       - ../data/env/.env.prod
     healthcheck:
-      test: ["CMD", "wget", "--spider", "--quiet", "http://localhost:3000/health"]
+      test: ["CMD", "wget", "--spider", "--quiet", "http://localhost:3000/metrics"]
       interval: 10s
       timeout: 3s
       retries: 5
@@ -314,7 +320,7 @@ services:
     env_file:
       - ../data/env/.env.prod
     healthcheck:
-      test: ["CMD", "wget", "--spider", "--quiet", "http://localhost:3000/health"]
+      test: ["CMD", "wget", "--spider", "--quiet", "http://localhost:3000/metrics"]
       interval: 10s
       timeout: 3s
       retries: 5
@@ -343,7 +349,7 @@ services:
     env_file:
       - ../data/env/.env.prod
     healthcheck:
-      test: ["CMD", "wget", "--spider", "--quiet", "http://localhost:3000/health"]
+      test: ["CMD", "wget", "--spider", "--quiet", "http://localhost:3000/metrics"]
       interval: 10s
       timeout: 3s
       retries: 5
