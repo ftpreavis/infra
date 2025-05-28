@@ -49,12 +49,6 @@ services:
     networks:
       - internal_network
       - metrics_network
-    healthcheck:
-      test: ["CMD", "wget", "--spider", "--quiet", "http://localhost"]
-      interval: 10s
-      timeout: 3s
-      retries: 5
-      start_period: 5s
 
   frontend:
     build:
