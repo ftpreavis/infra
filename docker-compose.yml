@@ -37,7 +37,8 @@ services:
   nginx-proxy:
     build:
       context: ./nginx
-      container_name: nginx-proxy
+      dockerfile: dockerfile
+    container_name: nginx-proxy
     ports:
       - "4443:80"
     volumes:
