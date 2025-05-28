@@ -48,7 +48,7 @@ services:
       - internal_network
       - metrics_network
     environment:
-      - WAIT_FOR_HOSTS=vault-module
+      - WAIT_FOR_HOSTS=vault-module prometheus-module grafana-module
     healthcheck:
       test: ["CMD", "test", "-f", "/tmp/nginx-waiting"]
       interval: 5s
@@ -180,6 +180,10 @@ services:
       - ../data/env/.env.prod
     depends_on:
       vault-module:
+        condition: service_healthy
+      prometheus-module:
+        condition: service_healthy
+      grafana-module:
         condition: service_healthy
 
   lobby-service:
