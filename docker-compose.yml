@@ -35,7 +35,6 @@ services:
       start_period: 5s
     depends_on:
       nginx-proxy:
-        condition: service_healthy
 
   nginx-proxy:
     image: nginx:alpine
@@ -49,12 +48,6 @@ services:
     networks:
       - internal_network
       - metrics_network
-    healthcheck:
-      test: ["CMD", "wget", "--spider", "--quiet", "http://localhost"]
-      interval: 10s
-      timeout: 3s
-      retries: 5
-      start_period: 5s
 
   frontend:
     build:
@@ -384,7 +377,6 @@ services:
       start_period: 5s
     depends_on:
       nginx-proxy:
-        condition: service_healthy
 
   grafana-module:
     build:
