@@ -381,7 +381,7 @@ services:
       - metrics_network
       - internal_network
     healthcheck:
-      test: ["CMD-SHELL", "curl -s -o /dev/null -w '%{http_code}' http://localhost:9090 | grep -qE '401|200|403'"]
+      test: ["CMD-SHELL", "wget --spider --quiet http://localhost:9090 2>&1 | grep -qE 401"]
       interval: 10s
       timeout: 15s
       retries: 10
