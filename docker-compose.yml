@@ -23,12 +23,14 @@ services:
       - ../data/env/.env.prod
     healthcheck:
       test:
-        - CMD
-        - wget
-        - --spider
-        - --proxy
-        - 'off'
-        - https://vault.transcendance.charles-poulain.ovh/v1/sys/health?standbyok=true
+        [
+          "CMD",
+          "wget",
+          "--spider",
+          "--proxy",
+          "off",
+          "http://localhost:8200/v1/sys/health?standbyok=true&uninitcode=200&sealedcode=200"
+        ]
       interval: 10s
       timeout: 3s
       retries: 10
