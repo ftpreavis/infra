@@ -22,14 +22,9 @@ services:
     env_file:
       - ../data/env/.env.prod
     healthcheck:
-      test:
-        [
-          "CMD",
-          "wget",
-          "--spider",
-          "--proxy",
-          "off",
-          "http://localhost:8200/v1/sys/health?standbyok=true&uninitcode=200&sealedcode=200"
+      test: [
+          "CMD-SHELL",
+          "curl -k --fail https://127.0.0.1:8200/v1/sys/health?standbyok=true&uninitcode=200&sealedcode=200 || exit 1"
         ]
       interval: 10s
       timeout: 3s
