@@ -80,7 +80,7 @@ services:
     container_name: db-service
     working_dir: /app
     volumes:
-      - /srv/ft_preavis/data/services/db-service:/app/database/database.db
+      - /srv/ft_preavis/data/services/db-service:/app/database
     expose:
       - "3000"
     networks:
