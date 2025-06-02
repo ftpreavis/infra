@@ -6,7 +6,7 @@ COPY modsecurity.conf /etc/modsecurity/modsecurity.conf
 
 RUN mkdir -p /var/log/nginx
 
-COPY log_perms ./
+COPY log_perms.sh ./
 RUN chmod +x log_perms.sh
 
 USER root
