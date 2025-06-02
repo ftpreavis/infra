@@ -3,6 +3,7 @@ FROM owasp/modsecurity-crs:nginx
 # Optional: copy your custom config
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY modsecurity.conf /etc/modsecurity/modsecurity.conf
+COPY unicode.mapping /etc/modsecurity/unicode.mapping
 
 RUN mkdir -p /var/log/nginx
 
