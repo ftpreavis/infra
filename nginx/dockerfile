@@ -7,9 +7,9 @@ COPY modsecurity.conf /etc/modsecurity/modsecurity.conf
 RUN mkdir -p /var/log/nginx
 
 COPY log_perms.sh ./
+USER root
 RUN chmod +x log_perms.sh
 
-USER root
 ENTRYPOINT ["./log_perms.sh"]
 
 CMD sh -c '\
