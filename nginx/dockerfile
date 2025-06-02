@@ -4,7 +4,13 @@ FROM owasp/modsecurity-crs:nginx
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY modsecurity.conf /etc/modsecurity/modsecurity.conf
 
-RUN chown -R nginx:nginx /var/log/nginx
+RUN mkdir -p /var/log/nginx
+
+COPY log_perms ./
+RUN chmod +x log_perms.sh
+
+USER root
+ENTRYPOINT ["./log_perms.sh"]
 
 CMD sh -c '\
   touch /tmp/nginx-waiting;\
