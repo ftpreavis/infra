@@ -1,7 +1,13 @@
 global:
   scrape_interval: 5s
 
+rule_files:
+  - "alerting_rules.yml"
+
 scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ["localhost:9090"]
   - job_name: 'microservices'
     static_configs:
       - targets:
@@ -14,4 +20,3 @@ scrape_configs:
           - 'notification-service:3000'
           - 'tournament-service:3000'
           - 'user-service:3000'
-
