@@ -365,7 +365,7 @@ services:
     container_name: prometheus-module
     user: "0:0"
     volumes:
-      - ./prometheus/conf_dev:/etc/prometheus
+      - ./prometheus/conf_prod:/etc/prometheus
       - /srv/ft_preavis/data/prometheus/data:/prometheus
     ports:
       - "9090:9090"
