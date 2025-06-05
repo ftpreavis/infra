@@ -1,0 +1,57 @@
+groups:
+  - name: microservice_alerts
+    rules:
+
+      - alert: HighEventLoopLag
+        expr: nodejs_eventloop_lag_mean_seconds > 0.5
+        for: 30s
+        labels:
+          severity: warning
+        annotations:
+          summary: "High event loop lag on {{ $labels.instance }}"
+          description: "Average event loop lag is {{ $value }}s for job {{ $labels.job }}."
+
+      - alert: HighMemoryUsage
+        expr: process_resident_memory_bytes > 200 * 1024 * 1024
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High memory usage on {{ $labels.instance }}"
+          description: "Service {{ $labels.job }} is using more than 200MB of RAM."
+
+      - alert: TooManyHandles
+        expr: nodejs_active_handles_total > 50
+        for: 30s
+        labels:
+          severity: warning
+        annotations:
+          summary: "Too many active handles on {{ $labels.instance }}"
+          description: "{{ $value }} handles active — possible resource leak in {{ $labels.job }}."
+
+      - alert: LongMajorGCDuration
+        expr: rate(nodejs_gc_duration_seconds_sum{kind="major"}[1m]) > 0.1
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Long major GC duration on {{ $labels.instance }}"
+          description: "Major GC took more than 0.1s in {{ $labels.job }}."
+
+      - alert: HighHTTPLatency
+        expr: http_request_summary_seconds{quantile="0.95"} > 0.5
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High HTTP latency on {{ $labels.instance }}"
+          description: "P95 latency is {{ $value }}s in {{ $labels.job }} for {{ $labels.route }}."
+
+      - alert: ServiceDown
+        expr: up == 0
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "{{ $labels.instance }} is down"
+          description: "Target {{ $labels.job }} on {{ $labels.instance }} has not responded for 30 seconds."

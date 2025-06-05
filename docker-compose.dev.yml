@@ -239,14 +239,16 @@ services:
         condition: service_healthy
 
   prometheus-module:
-    image: prom/prometheus:latest
+    build:
+      context: prometheus
+      dockerfile: dockerfile.dev
     container_name: prometheus-module
     ports:
       - 9090:9090
     networks:
       - internal_network
     volumes:
-      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./prometheus/conf_dev:/etc/prometheus
 
   grafana-module:
     build:
